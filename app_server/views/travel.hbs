@@ -1,0 +1,37 @@
+<div id="travel">
+  <h1>{{title}}</h1>
+  <p><a href="/">Back to Home</a></p>
+  <input type="text" placeholder="Search Travel">
+  <button>Add a Trip</button>
+
+  <div class="tabs">
+    <span>Beaches (5)</span>
+    <span>Cruises (4)</span>
+    <span>Mountains (6)</span>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Destination</th>
+        <th>Length</th>
+        <th>Start</th>
+        <th>Resort</th>
+        <th>Per Person</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each trips}}
+      <tr>
+        <td>{{this.id}}</td>
+        <td>{{this.name}}</td>
+        <td>{{this.length}}</td>
+        <td>{{this.start}}</td>
+        <td>{{this.resort}}</td>
+        <td>{{this.price}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
