@@ -1,8 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var mainController = require('../controllers/main');
+// Import the main controller to handle home page requests
+const ctrlMain = require('../controllers/main');
 
-router.get('/', mainController.index);
-router.get('/travel', mainController.travel);
+/* GET home page. */
+// Route root requests to the index function in the main controller
+router.get('/', ctrlMain.index);
 
 module.exports = router;
