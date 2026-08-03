@@ -1,14 +1,40 @@
-// Use Node's built-in filesystem module to read the JSON data file
-var fs = require('fs');
-// Read and parse the trips JSON file synchronously on each request
-var trips = JSON.parse(fs.readFileSync('./data/trips.json', 'utf8'));
+// API endpoint for fetching all trips
+const tripsEndpoint = 'http://localhost:3000/api/trips';
+// Options for the fetch request
+const options = {
+  method: 'GET',
+  headers: {
+    'Accept': 'application/json'
+  }
+};
+
+// var fs = require('fs');
+// var trips = JSON.parse(fs.readFileSync('./data/trips.json', 'utf8'));
 
 /* GET travel view */
-// Pass the trips data array to the travel template for rendering
-const travel = (req, res) => {
-  res.render('travel', { title: 'Travlr Getaways', trips });
+// Async function required because fetch to API endpoint is not synchronous
+const travel = async function(req, res, next) {
+  // console.log('TRAVEL CONTROLLER BEGIN');
+  await fetch(tripsEndpoint, options)
+    .then(res => res.json())
+    .then(json => {
+      // console.log(json);
+      // Check for valid data before rendering
+      let message = null;
+      if(!(json instanceof Array)) {
+        message = 'API lookup error';
+        json = [];
+      } else {
+        if(!json.length) {
+          message = 'No trips exist in our database!';
+        }
+      }
+      // Pass trips data and any message to the travel view
+      res.render('travel', { title: 'Travlr Getaways', trips: json, message });
+    })
+    .catch(err => res.status(500).send(err.message));
 };
 
 module.exports = {
-  travel
+  travel,
 };

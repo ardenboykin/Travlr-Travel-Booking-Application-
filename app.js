@@ -8,8 +8,13 @@ var logger = require('morgan');
 var indexRouter = require('./app_server/routes/index');
 var usersRouter = require('./app_server/routes/users');
 var travelRouter = require('./app_server/routes/travel');
+// Create variable for API routes
+var apiRouter = require('./app_api/routes/index');
 // Import handlebars to enable partial registration
 var handlebars = require('hbs');
+
+// Connect to the MongoDB database via Mongoose - updated path after moving models to app_api
+require('./app_api/models/db');
 
 var app = express();
 
@@ -33,6 +38,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/travel', travelRouter);
+
+// Wire-up API routes
+app.use('/api', apiRouter);
 
 // Catch 404 errors and forward to error handler
 app.use(function(req, res, next) {

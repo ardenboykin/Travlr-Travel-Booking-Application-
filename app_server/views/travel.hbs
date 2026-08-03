@@ -18,11 +18,11 @@
             <div class="body">
               <h1>Travel</h1>
               <ul id="sites">
-                {{!-- Loop through each trip object passed in from the controller --}}
+                {{!-- Loop through each trip object returned from the API --}}
                 {{#each trips}}
                 <li>
-                  {{!-- this.image and this.name reference properties on each trip object --}}
-                  <a href="/travel"><img src="{{this.image}}" alt="Img"></a>
+                  {{!-- href updated to use API endpoint with trip code for filtered lookup --}}
+                  <a href="/api/trips/{{this.code}}"><img src="{{this.image}}" alt="Img"></a>
                   <h2><a href="/travel">{{this.name}}</a></h2>
                   {{!-- Triple braces render the HTML tags inside the description string --}}
                   {{{this.description}}}
