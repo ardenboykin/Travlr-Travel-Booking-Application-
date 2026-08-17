@@ -1,30 +1,27 @@
-import { Component, OnInit, OnDestroy, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Trip } from '../models/trip';
 import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
-  selector: 'app-trip-card',
+  selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './trip-card.component.html',
-  styleUrl: './trip-card.component.css'
+  imports: [CommonModule, RouterModule],
+  templateUrl: './navbar.component.html',
+  styleUrl: './navbar.component.css',
 })
-export class TripCardComponent implements OnInit, OnDestroy {
+export class NavbarComponent implements OnInit, OnDestroy {
 
-  @Input('trip') trip: any;
   isLoggedIn: boolean = false;
   private authSub!: Subscription;
 
   constructor(
-    private router: Router,
     private authenticationService: AuthenticationService,
     private cd: ChangeDetectorRef
-  ) {}
+  ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.isLoggedIn = this.authenticationService.isLoggedIn();
     this.authSub = this.authenticationService.authStatus$.subscribe(status => {
       this.isLoggedIn = status;
@@ -36,9 +33,7 @@ export class TripCardComponent implements OnInit, OnDestroy {
     this.authSub.unsubscribe();
   }
 
-  public editTrip(trip: Trip) {
-    localStorage.removeItem('tripCode');
-    localStorage.setItem('tripCode', trip.code);
-    this.router.navigate(['edit-trip']);
+  public onLogout(): void {
+    this.authenticationService.logout();
   }
 }

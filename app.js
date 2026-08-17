@@ -16,6 +16,11 @@ var handlebars = require('hbs');
 // Connect to the MongoDB database via Mongoose - updated path after moving models to app_api
 require('./app_api/models/db');
 
+// Wire in our authentication module
+require('dotenv').config();
+var passport = require('passport');
+require('./app_api/config/passport');
+
 var app = express();
 
 // Point Express to the app_server views folder for template rendering
@@ -34,10 +39,12 @@ app.use(cookieParser());
 // Serve static files from the public folder
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(passport.initialize());
+
 // Enable CORS
 app.use('/api', (req, res, next) => {
   res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   next();
 });
@@ -53,6 +60,17 @@ app.use('/api', apiRouter);
 // Catch 404 errors and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
+});
+
+// Catch unauthorized error and create 401
+app.use((err, req, res, next) => {
+  if(err.name === 'UnauthorizedError') {
+    res
+      .status(401)
+      .json({"message": err.name + ": " + err.message});
+  } else {
+    next(err);
+  }
 });
 
 // Error handler - only exposes full error details in development

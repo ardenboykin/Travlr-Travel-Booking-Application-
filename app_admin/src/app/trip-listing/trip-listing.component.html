@@ -1,4 +1,4 @@
-<div class="mt-2 mb-2">
+<div class="mt-2 mb-2" *ngIf="isLoggedIn">
   <button (click)="addTrip()" class="btn btn-info">Add Trip</button>
 </div>
 <div *ngIf="message" class="mt-2">
