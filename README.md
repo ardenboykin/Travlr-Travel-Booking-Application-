@@ -1,4 +1,4 @@
-# Travlr / CS-465-Full-Stack-Development 
+# Travlr
 
 Travlr is a full-stack travel booking application developed as part of my coursework. The application allows users to browse trips and provides an administrative interface for managing travel information.
 
