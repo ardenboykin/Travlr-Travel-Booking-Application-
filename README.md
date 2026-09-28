@@ -56,7 +56,7 @@ The application starts using the Node.js server defined in `bin/www`.
 
 ## Documentation
 
-See the [Travlr Software Design Document](docs/Travlr%20Software%20Design%20Document.pdf) for more detailed information about the project's requirements, system design, architecture, diagrams, and implementation.
+See the [Travlr Software Design Document](docs/Travlr%20Software%20Design%20Document%20-%20Arden%20Boykin.pdf) for more detailed information about the project's requirements, system design, architecture, diagrams, and implementation.
 
 ## Development
 
