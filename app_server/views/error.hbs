@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Error</title>
+</head>
+<body>
+  {{!-- Display the error message returned from the error handler in app.js --}}
+  <h1>{{message}}</h1>
+  <h2>{{error.status}}</h2>
+  {{!-- Only shows full stack trace in development --}}
+  <pre>{{error.stack}}</pre>
+</body>
+</html>

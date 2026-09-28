@@ -1,0 +1,14 @@
+<div class="mt-2 mb-2" *ngIf="isLoggedIn">
+  <button (click)="addTrip()" class="btn btn-info">Add Trip</button>
+</div>
+<div *ngIf="message" class="mt-2">
+  <p>{{ message }}</p>
+</div>
+<div class="row" *ngIf="trips && trips.length > 0">
+  <div *ngFor="let trip of trips" class="col-md-4">
+    <app-trip-card [trip]="trip"></app-trip-card>
+  </div>
+</div>
+<div *ngIf="!trips || trips.length === 0">
+  <p>No trips found. Make sure the Express server is running on port 3000.</p>
+</div>

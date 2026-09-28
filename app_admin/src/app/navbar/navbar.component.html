@@ -1,0 +1,13 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Travlr Getaways Admin</a>
+    <div class="navbar-end pull-right">
+      <a class="nav-item" routerLink="login" *ngIf="!isLoggedIn">
+        <span class="has-icon-left">Log In</span>
+      </a>
+      <a class="nav-item active" (click)="onLogout()" *ngIf="isLoggedIn">
+        <span class="has-icon-left">Log Out</span>
+      </a>
+    </div>
+  </div>
+</nav>
