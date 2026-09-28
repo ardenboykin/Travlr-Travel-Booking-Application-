@@ -11,6 +11,9 @@ var travelRouter = require('./app_server/routes/travel');
 // Import handlebars to enable partial registration
 var handlebars = require('hbs');
 
+// Connect to the MongoDB database via Mongoose
+require('./app_server/models/db');
+
 var app = express();
 
 // Point Express to the app_server views folder for template rendering
